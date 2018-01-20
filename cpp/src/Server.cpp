@@ -46,16 +46,16 @@ bool Server::run()
                     << Config::getName()
                     << std::endl
                     << "Local IP Address:"
-                    << cppsocket::ipToString(client.getLocalIPAddress())
+                    << cppsocket::ipToString(socket.getLocalIPAddress())
                     << std::endl
                     << "Local Port:"
-                    << client.getLocalPort()
+                    << socket.getLocalPort()
                     << std::endl
                     << "Remote IP Address:"
-                    << cppsocket::ipToString(client.getRemoteIPAddress())
+                    << cppsocket::ipToString(socket.getRemoteIPAddress())
                     << std::endl
                     << "Remote Port:"
-                    << client.getRemotePort()
+                    << socket.getRemotePort()
                     << std::endl;
             const std::string& str = oss.str();
             std::vector<uint8_t> vector(str.begin(), str.end());
@@ -63,7 +63,7 @@ bool Server::run()
             std::this_thread::sleep_for(sleepTime);
             std::cout
                     << "-- Sending: "
-                    << cppsocket::ipToString(client.getRemoteIPAddress())
+                    << cppsocket::ipToString(socket.getRemoteIPAddress())
                     << std::endl
                     << str
                     << std::endl;
