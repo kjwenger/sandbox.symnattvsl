@@ -4,16 +4,16 @@
 #include <thread>
 
 #include "Config.hpp"
-#include "ServerOne.hpp"
+#include "ServerTwo.hpp"
 
-ServerOne::ServerOne()
+ServerTwo::ServerTwo()
         : network()
         , server(network)
         , clients()
         , stopped(false)
 {
 }
-bool ServerOne::f1()
+bool ServerTwo::f1()
 {
     int port = Config::getPort(Config::S1_);
 
@@ -21,44 +21,32 @@ bool ServerOne::f1()
     server.startAccept(cppsocket::ANY_ADDRESS, port);
 
     server.setAcceptCallback([&](
-            cppsocket::Socket&,
-            cppsocket::Socket& client) {
+            cppsocket::Socket& s,
+            cppsocket::Socket& c) {
         std::cout
                 << "Client Connected:"
                 << std::endl;
-
-        client.setReadCallback([&](
-                cppsocket::Socket& socket,
-                const std::vector<uint8_t>& data) {
-            std::cout
-                    << "Read Client: "
-                    << cppsocket::ipToString(socket.getRemoteIPAddress())
-                    << std::endl
-                    << data.data()
-                    << std::endl;
-        });
-
-        client.startRead();
+        c.startRead();
         std::ostringstream oss;
         oss
-                << ".s1"
+                << ".s2"
                 << std::endl
                 << "Local IP Address:"
-                << cppsocket::ipToString(client.getLocalIPAddress())
+                << cppsocket::ipToString(c.getLocalIPAddress())
                 << std::endl
                 << "Local Port:"
-                << client.getLocalPort()
+                << c.getLocalPort()
                 << std::endl
                 << "Remote IP Address:"
-                << cppsocket::ipToString(client.getRemoteIPAddress())
+                << cppsocket::ipToString(c.getRemoteIPAddress())
                 << std::endl
                 << "Remote Port:"
-                << client.getRemotePort()
+                << c.getRemotePort()
                 << std::endl;
         const std::string& str = oss.str();
         std::vector<uint8_t> vector(str.begin(), str.end());
-        client.send(vector);
-        client.setCloseCallback([&](
+        c.send(vector);
+        c.setCloseCallback([&](
                 cppsocket::Socket& socket) {
             std::cout
                     << "Client Disconnected: "
@@ -81,7 +69,7 @@ bool ServerOne::f1()
             }
 
         });
-        clients.push_back(std::move(client));
+        clients.push_back(std::move(c));
     });
 
     const std::chrono::microseconds sleepTime(10000);
@@ -93,14 +81,14 @@ bool ServerOne::f1()
 
     return false;
 }
-bool ServerOne::f2()
+bool ServerTwo::f2()
 {
     return false;
 }
-bool ServerOne::f3()
+bool ServerTwo::f3()
 {
     return false;
 }
-void ServerOne::stop() {
+void ServerTwo::stop() {
     stopped = true;
 }

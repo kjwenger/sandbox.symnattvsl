@@ -1,3 +1,4 @@
+#include <sstream>
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -25,10 +26,10 @@ bool EchoClient::f1()
             cppsocket::Socket& socket,
             const std::vector<uint8_t>& data) {
         std::cout
-                << "Read: "
-                << data.data()
-                << " from "
+                << "Read Server: "
                 << cppsocket::ipToString(socket.getRemoteIPAddress())
+                << std::endl
+                << data.data()
                 << std::endl;
         stopped = true;
     });
@@ -39,7 +40,25 @@ bool EchoClient::f1()
                 << "Connected: "
                 << cppsocket::ipToString(socket.getRemoteIPAddress())
                 << std::endl;
-        socket.send({'t', 'e', 's', 't', '\0'});
+        std::ostringstream oss;
+        oss
+                << ".ec"
+                << std::endl
+                << "Local IP Address:"
+                << cppsocket::ipToString(socket.getLocalIPAddress())
+                << std::endl
+                << "Local Port:"
+                << socket.getLocalPort()
+                << std::endl
+                << "Remote IP Address:"
+                << cppsocket::ipToString(socket.getRemoteIPAddress())
+                << std::endl
+                << "Remote Port:"
+                << socket.getRemotePort()
+                << std::endl;
+        const std::string& str = oss.str();
+        std::vector<uint8_t> vector(str.begin(), str.end());
+        socket.send(vector);
     });
 
     client.setConnectErrorCallback([&, address](
