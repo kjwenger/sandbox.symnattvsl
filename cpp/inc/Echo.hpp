@@ -48,7 +48,7 @@
     Based on this information, the echo server sends a large number of packets.
     These packets have a fixed destination port and a low TTL value.
     The echo server binds the port.
-    The packets are then sent to the echo client.1
+    The packets are then sent to the echo client.
  > F9:
     Using the two kinds of information obtained in phases I and II, namely,
     the communications of NAT b with S1 and S2,
