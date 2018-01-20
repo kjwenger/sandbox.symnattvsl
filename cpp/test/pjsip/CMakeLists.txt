@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.7)
-enable_testing()
-find_package(Threads REQUIRED)
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIR})
-add_executable(test.pjsip
-        src/test.pjsip.cpp
+if (NOT DEFINED CMAKE_PREFIX_PATH)
+    set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../staging)
+endif (NOT DEFINED CMAKE_PREFIX_PATH)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_PREFIX_PATH})
+set(CONFIGURE_ARGS
+        --prefix=${CMAKE_PREFIX_PATH}
 )
-target_link_libraries(test.pjsip
-        ${CMAKE_THREAD_LIBS_INIT}
-        ${GTEST_LIBRARY}
-        ${GTEST_MAIN_LIBRARY}
-)
-add_test(
-        NAME test.pjsip
-        COMMAND test.pjsip
+include(ExternalProject)
+ExternalProject_Add(
+        pjsip
+        SVN_REPOSITORY http://svn.pjsip.org/repos/pjproject/trunk
+        CONFIGURE_COMMAND ./configure ${CONFIGURE_ARGS}
+        INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
+        BUILD_IN_SOURCE 1
+        BUILD_COMMAND make dep && make clean && make -j
 )
