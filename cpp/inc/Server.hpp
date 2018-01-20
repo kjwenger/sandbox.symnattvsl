@@ -4,8 +4,6 @@
 
 #include <Network.hpp>
 
-#include "Server.hpp"
-
 /**
  # 4.1 Phase I
     The new method is divided into three phases.
@@ -29,7 +27,14 @@
     Furthermore, S2 also records the information obtained on the port number
     of NAT a when the echo client communicated with S1 at step F1.
 */
-class ServerTwo : public Server {
+class Server {
 public:
-    ServerTwo();
+    Server();
+    bool run();
+    void stop();
+private:
+    cppsocket::Network network;
+    cppsocket::Socket server;
+    std::vector<cppsocket::Socket> clients;
+    bool stopped;
 };

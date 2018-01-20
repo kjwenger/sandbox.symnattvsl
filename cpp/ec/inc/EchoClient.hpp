@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Network.hpp"
+#include <string>
+
+#include <Network.hpp>
 
 /**
  # 4.1 Phase I
@@ -64,12 +66,16 @@
 class EchoClient {
 public:
     EchoClient();
-    bool f1();
-    bool f2();
-    bool f3();
+    bool run();
+    bool contact(
+            bool& flagged,
+            const std::string& prefix,
+            std::string& input,
+            std::string& output);
     void stop();
 private:
     cppsocket::Network network;
     cppsocket::Socket client;
+    bool continued;
     bool stopped;
 };

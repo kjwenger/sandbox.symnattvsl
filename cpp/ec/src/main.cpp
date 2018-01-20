@@ -4,7 +4,7 @@ int main (int argc, char *argv[])
 {
     EchoClient echoClient;
 
-    echoClient.f1();
+    echoClient.run();
 
     return 0;
 }

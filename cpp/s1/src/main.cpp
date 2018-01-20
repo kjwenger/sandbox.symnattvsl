@@ -4,7 +4,7 @@ int main (int argc, char *argv[])
 {
     ServerOne serverOne;
 
-    serverOne.f1();
+    serverOne.run();
 
     return 0;
 }
