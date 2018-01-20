@@ -9,6 +9,7 @@
 EchoClient::EchoClient()
         : network()
         , client(network)
+        , continued(false)
         , stopped(false)
 {
 }
@@ -19,7 +20,7 @@ bool EchoClient::contact(
         std::string& output)
 {
     std::cout
-            << "Prefix: "
+            << "-- Prefix: "
             << prefix
             << std::endl;
 
@@ -30,7 +31,7 @@ bool EchoClient::contact(
     client.setBlocking(false);
     client.setConnectTimeout(2.0F);
     std::cout
-            << "Connecting Server: "
+            << "-- Connecting Server: "
             << address
             << std::endl;
     client.connect(address);
@@ -40,13 +41,13 @@ bool EchoClient::contact(
             const std::vector<uint8_t>& data) {
         std::ostringstream oss;
         oss
-                << data.data()
-                << std::endl;
+                << data.data();
         std::cout
-                << "Read Server: "
+                << "-- Read Server: "
                 << cppsocket::ipToString(socket.getRemoteIPAddress())
                 << std::endl
-                << oss.str();
+                << oss.str()
+                << std::endl;
         output.assign(oss.str());
         flagged = true;
     });
@@ -54,7 +55,7 @@ bool EchoClient::contact(
     client.setConnectCallback([&](
             cppsocket::Socket& socket) {
         std::cout
-                << "Connected: "
+                << "-- Connected: "
                 << cppsocket::ipToString(socket.getRemoteIPAddress())
                 << std::endl;
         std::ostringstream oss;
@@ -79,13 +80,17 @@ bool EchoClient::contact(
         }
         const std::string& str = oss.str();
         std::vector<uint8_t> vector(str.begin(), str.end());
+        vector.push_back(0);
+        std::cout
+                << "-- Sending: "
+                << str;
         socket.send(vector);
     });
 
     client.setConnectErrorCallback([&, address](
             cppsocket::Socket& socket) {
         std::cout
-                << "Connect Error: "
+                << "-- Connect Error: "
                 << cppsocket::ipToString(socket.getRemoteIPAddress())
                 << std::endl;
 

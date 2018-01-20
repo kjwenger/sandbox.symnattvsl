@@ -25,7 +25,7 @@ bool Server::run()
             cppsocket::Socket&,
             cppsocket::Socket& client) {
         std::cout
-                << "Client Connected: "
+                << "-- Client Connected: "
                 << cppsocket::ipToString(client.getRemoteIPAddress())
                 << std::endl;
 
@@ -34,10 +34,9 @@ bool Server::run()
                 const std::vector<uint8_t>& data) {
             std::ostringstream oss;
             oss
-                    << data.data()
-                    << std::endl;
+                    << data.data();
             std::cout
-                    << "Read Client: "
+                    << "-- Read Client: "
                     << cppsocket::ipToString(socket.getRemoteIPAddress())
                     << std::endl
                     << oss.str()
@@ -60,9 +59,10 @@ bool Server::run()
                     << std::endl;
             const std::string& str = oss.str();
             std::vector<uint8_t> vector(str.begin(), str.end());
+            vector.push_back(0);
             std::this_thread::sleep_for(sleepTime);
             std::cout
-                    << "Sending: "
+                    << "-- Sending: "
                     << cppsocket::ipToString(client.getRemoteIPAddress())
                     << std::endl
                     << str
@@ -75,7 +75,7 @@ bool Server::run()
         client.setCloseCallback([&](
                 cppsocket::Socket& socket) {
             std::cout
-                    << "Client Disconnected: "
+                    << "-- Client Disconnected: "
                     << cppsocket::ipToString(socket.getRemoteIPAddress())
                     << std::endl;
 
