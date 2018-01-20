@@ -1,4 +1,6 @@
-4. NEW METHOD
+# A New Method for Symmetric NAT Traversal in UDP and TCP
+
+## 4. NEW METHOD
 
 In this section we propose a new method for UDP multihole
 punching. This method establishes a UDP connection
@@ -15,7 +17,7 @@ UDP. This is an advantage of the proposed new method.
 Figure_6.png
 "Figure 6: New method of UDP multi-hole punching")
 
-## 4.1 Phase I
+### 4.1 Phase I
 
 The new method is divided into three phases.
 In this method,
@@ -45,7 +47,7 @@ Figure_7.png
     Furthermore, S2 also records the information obtained on the port number
     of NAT a when the echo client communicated with S1 at step F1.
 
-## 4.2 Phase II
+### 4.2 Phase II
 
 In phase II, the echo server communicates with S1 and S2
 in a manner similar to that in phase I.
@@ -70,7 +72,7 @@ Figure_8.png
     when the echo server communicated with S1 at step F4.the predicted
     port number and the punching mode to the echo server.
 
-## 4.3 Phase III
+### 4.3 Phase III
 
 In phase III, the method performs port prediction. As described in phase I,
 NAT a maps the port number twice,
