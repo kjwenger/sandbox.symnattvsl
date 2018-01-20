@@ -11,7 +11,7 @@ include(ExternalProject)
 ExternalProject_Add(
         cppsocket
         GIT_REPOSITORY https://github.com/elnormous/cppsocket.git
-        PATCH_COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/patch/CMakeLists.txt ${PROJECT_BINARY_DIR}/cppsocket-prefix/src/cppsocket
+        PATCH_COMMAND cp -v ${CMAKE_CURRENT_SOURCE_DIR}/patch/CMakeLists.txt <SOURCE_DIR>
         CMAKE_ARGS ${CMAKE_ARGS}
         INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
 )
