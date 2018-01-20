@@ -1,4 +1,5 @@
 #include <sstream>
+#include <cstdlib>
 
 #include "Config.hpp"
 
