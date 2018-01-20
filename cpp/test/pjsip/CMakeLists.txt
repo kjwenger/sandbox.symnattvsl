@@ -4,6 +4,7 @@ if (NOT DEFINED CMAKE_PREFIX_PATH)
 endif (NOT DEFINED CMAKE_PREFIX_PATH)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_PREFIX_PATH})
 set(CONFIGURE_ARGS
+        --disable-sound
         --prefix=${CMAKE_PREFIX_PATH}
 )
 include(ExternalProject)

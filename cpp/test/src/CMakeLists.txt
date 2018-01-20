@@ -7,7 +7,7 @@ find_package(Threads REQUIRED)
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIR})
 file(GLOB_RECURSE SRC
-        ./*.cpp
+        ./pjsip/*.cpp
 )
 add_executable(test.pjsip
         ${SRC}
