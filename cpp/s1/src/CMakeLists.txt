@@ -10,23 +10,23 @@ file(GLOB_RECURSE SRC
         ../../src/*.cpp
         ./*.cpp
 )
-add_executable(ec
+add_executable(s1
         ${INC}
         ${SRC}
 )
-target_include_directories(ec PUBLIC
+target_include_directories(s1 PUBLIC
         ../../inc
         ../inc
         ${CMAKE_PREFIX_PATH}/include
 )
-target_link_libraries(ec
+target_link_libraries(s1
         ${CMAKE_PREFIX_PATH}/lib/libcppsocket.so
 )
 find_package(Doxygen
         REQUIRED dot
         OPTIONAL_COMPONENTS mscgen dia
 )
-doxygen_add_docs(doxygen.ec
+doxygen_add_docs(doxygen.s1
         ./
         ./inc
 )

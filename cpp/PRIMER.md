@@ -11,6 +11,13 @@
 
 ## Bootstrapping development
 
+```bash
+sudo apt install \
+    build-essential \
+    gcc g++ \
+    graphviz doxygen doxygen-gui
+```
+
 ## Installing the IDE
 
 ## Creating the project
