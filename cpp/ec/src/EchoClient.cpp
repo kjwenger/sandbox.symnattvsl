@@ -21,7 +21,7 @@ bool EchoClient::f1()
     client.setConnectTimeout(2.0F);
     client.connect(address);
 
-    client.setReadCallback([](
+    client.setReadCallback([&](
             cppsocket::Socket& socket,
             const std::vector<uint8_t>& data) {
         std::cout
@@ -30,6 +30,7 @@ bool EchoClient::f1()
                 << " from "
                 << cppsocket::ipToString(socket.getRemoteIPAddress())
                 << std::endl;
+        stopped = true;
     });
 
     client.setConnectCallback([](

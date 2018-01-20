@@ -1,3 +1,4 @@
+#include <sstream>
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -26,7 +27,23 @@ bool ServerOne::f1()
                 << "Client Connected:"
                 << std::endl;
         c.startRead();
-        c.send({'t', 'e', 's', 't', '\0'});
+        std::ostringstream oss;
+        oss
+                << "Local IP Address:"
+                << cppsocket::ipToString(c.getLocalIPAddress())
+                << std::endl
+                << "Local Port:"
+                << c.getLocalPort()
+                << std::endl
+                << "Remote IP Address:"
+                << cppsocket::ipToString(c.getRemoteIPAddress())
+                << std::endl
+                << "Remote Port:"
+                << c.getRemotePort()
+                << std::endl;
+        const std::string& str = oss.str();
+        std::vector<uint8_t> vector(str.begin(), str.end());
+        c.send(vector);
         c.setCloseCallback([&](
                 cppsocket::Socket& socket) {
             std::cout
