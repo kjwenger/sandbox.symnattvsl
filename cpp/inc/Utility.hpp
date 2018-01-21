@@ -21,11 +21,10 @@ oss \
     << std::endl \
 
 #define MATCH_ECHO_CLIENT_MESSAGE(oss, messages) \
+std::string first; \
 { \
     std::istringstream iss(oss.str()); \
-    std::string first; \
     std::getline(iss, first); \
-    messages[first] = oss.str(); \
     std::string ec(first); \
     std::string _es(".es"); \
     auto found = ec.find(_es); \
@@ -35,7 +34,9 @@ oss \
             auto iterator = messages.find(ec); \
             if (iterator != messages.end()) \
             { \
+                oss << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"; \
                 oss << iterator->second; \
+                oss << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"; \
             } \
         } \
     } \

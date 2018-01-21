@@ -47,6 +47,8 @@ bool Server::run()
 
             TRACE_SENDING(socket, str);
             socket.send(vector);
+
+            messages[first] = oss.str();
         });
 
         client.startRead();
