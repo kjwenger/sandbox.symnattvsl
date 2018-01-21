@@ -20,3 +20,24 @@ oss \
     << socket.getRemotePort() \
     << std::endl \
 
+#define MATCH_ECHO_CLIENT_MESSAGE(oss, messages) \
+{ \
+    std::istringstream iss(oss.str()); \
+    std::string first; \
+    std::getline(iss, first); \
+    messages[first] = oss.str(); \
+    std::string ec(first); \
+    std::string _es(".es"); \
+    auto found = ec.find(_es); \
+    if (found != std::string::npos) { \
+        ec.replace(found, _es.length(), ".ec"); \
+        if (ec != first) { \
+            auto iterator = messages.find(ec); \
+            if (iterator != messages.end()) \
+            { \
+                oss << iterator->second; \
+            } \
+        } \
+    } \
+} \
+

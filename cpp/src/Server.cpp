@@ -37,23 +37,7 @@ bool Server::run()
             oss << data.data();
             TRACE_READ(socket, oss.str());
 
-            //Find a matching ".ec:<sequence>" for a possible ".es:<sequence>"
-            std::istringstream iss(oss.str());
-            std::string first;
-            std::getline(iss, first); //Extract a possible ".es:<sequence>"
-            std::string ec(first);
-            std::string es(".es");
-            unsigned long found = ec.find(es);
-            ec.replace(found, es.length(), ".ec"); //Convert to a possible matching ".ec:<sequence>"
-            if (ec != first) { //It was an ".es:<sequence>" to begin with
-                auto iterator = messages.find(ec); //Find a previous matching message from the echo client
-                if (iterator != messages.end())
-                {
-                    //Matching ".ec:<sequence>" found for ".es:<sequence>", add to send message
-                    oss << iterator->second;
-                }
-            }
-            messages[first] = oss.str();
+            MATCH_ECHO_CLIENT_MESSAGE(oss, messages)
 
             STREAM_SOCKET(oss, socket, sequence, Config::s1);
             const std::string& str = oss.str();
