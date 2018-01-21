@@ -112,4 +112,5 @@ private:
     cppsocket::Socket client;
     bool continued;
     bool stopped;
+    unsigned int sequence;
 };

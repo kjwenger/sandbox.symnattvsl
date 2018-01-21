@@ -37,4 +37,5 @@ private:
     cppsocket::Socket server;
     std::vector<cppsocket::Socket> clients;
     bool stopped;
+    unsigned int sequence;
 };

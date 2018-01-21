@@ -8,6 +8,8 @@ endif(UNIX)
 file(GLOB_RECURSE INC
         ../../inc/Config.hpp
         ../../inc/Server.hpp
+        ../../inc/Trace.hpp
+        ../../inc/Utility.hpp
         ../inc/*.hpp
 )
 file(GLOB_RECURSE SRC

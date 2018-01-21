@@ -5,12 +5,15 @@
 
 #include "Config.hpp"
 #include "Echo.hpp"
+#include "Trace.hpp"
+#include "Utility.hpp"
 
 Echo::Echo()
         : network()
         , client(network)
         , continued(false)
         , stopped(false)
+        , sequence(0U)
 {
 }
 bool Echo::contact(
@@ -19,80 +22,50 @@ bool Echo::contact(
         std::string& input,
         std::string& output)
 {
-    std::cout
-            << "-- Prefix: "
-            << prefix
-            << std::endl;
+    TRACE_PREFIX(prefix);
 
     std::string host(Config::getHost(prefix));
     int port = Config::getPort(prefix);
     std::string address(Config::address(host, port));
 
+    TRACE_CONNECTING(address);
+
     client.setBlocking(false);
     client.setConnectTimeout(2.0F);
-    std::cout
-            << "-- Connecting Server: "
-            << address
-            << std::endl;
     client.connect(address);
 
     client.setReadCallback([&](
             cppsocket::Socket& socket,
             const std::vector<uint8_t>& data) {
         std::ostringstream oss;
-        oss
-                << data.data();
-        std::cout
-                << "-- Read Server: "
-                << cppsocket::ipToString(socket.getRemoteIPAddress())
-                << std::endl
-                << oss.str()
-                << std::endl;
+        oss << data.data();
+        TRACE_READ(socket, oss.str());
+
         output.assign(oss.str());
         flagged = true;
     });
 
     client.setConnectCallback([&](
             cppsocket::Socket& socket) {
-        std::cout
-                << "-- Connected: "
-                << cppsocket::ipToString(socket.getRemoteIPAddress())
-                << std::endl;
+        TRACE_CONNECTED(socket);
+
         std::ostringstream oss;
         if (input.size()) {
             oss << input;
         } else {
-            oss
-                    << ".ec"
-                    << std::endl
-                    << "Local IP Address:"
-                    << cppsocket::ipToString(socket.getLocalIPAddress())
-                    << std::endl
-                    << "Local Port:"
-                    << socket.getLocalPort()
-                    << std::endl
-                    << "Remote IP Address:"
-                    << cppsocket::ipToString(socket.getRemoteIPAddress())
-                    << std::endl
-                    << "Remote Port:"
-                    << socket.getRemotePort()
-                    << std::endl;
+            STREAM_SOCKET(oss, socket, sequence, Config::ec);
         }
         const std::string& str = oss.str();
         std::vector<uint8_t> vector(str.begin(), str.end());
         vector.push_back(0);
-        std::cout
-                << "-- Sending: "
-                << str;
+
+        TRACE_SENDING(socket, str);
         socket.send(vector);
     });
 
     client.setConnectErrorCallback([&, address](
             cppsocket::Socket& socket) {
-        std::cout
-                << "-- Connect Error: "
-                << cppsocket::ipToString(socket.getRemoteIPAddress())
-                << std::endl;
+        TRACE_CONNECT_ERROR(socket);
 
         client.connect(address);
     });

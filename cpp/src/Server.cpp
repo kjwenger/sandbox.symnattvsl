@@ -4,13 +4,16 @@
 #include <thread>
 
 #include "Config.hpp"
+#include "Utility.hpp"
 #include "Server.hpp"
+#include "Trace.hpp"
 
 Server::Server()
         : network()
         , server(network)
         , clients()
         , stopped(false)
+        , sequence(0U)
 {
 }
 bool Server::run()
@@ -24,49 +27,22 @@ bool Server::run()
     server.setAcceptCallback([&](
             cppsocket::Socket&,
             cppsocket::Socket& client) {
-        std::cout
-                << "-- Client Connected: "
-                << cppsocket::ipToString(client.getRemoteIPAddress())
-                << std::endl;
+        TRACE_CONNECTED(client);
 
         client.setReadCallback([&](
                 cppsocket::Socket& socket,
                 const std::vector<uint8_t>& data) {
             std::ostringstream oss;
-            oss
-                    << data.data();
-            std::cout
-                    << "-- Read Client: "
-                    << cppsocket::ipToString(socket.getRemoteIPAddress())
-                    << std::endl
-                    << oss.str()
-                    << std::endl;
-            oss
-                    << "."
-                    << Config::getName()
-                    << std::endl
-                    << "Local IP Address:"
-                    << cppsocket::ipToString(socket.getLocalIPAddress())
-                    << std::endl
-                    << "Local Port:"
-                    << socket.getLocalPort()
-                    << std::endl
-                    << "Remote IP Address:"
-                    << cppsocket::ipToString(socket.getRemoteIPAddress())
-                    << std::endl
-                    << "Remote Port:"
-                    << socket.getRemotePort()
-                    << std::endl;
+            oss << data.data();
+            TRACE_READ(socket, oss.str());
+
+            STREAM_SOCKET(oss, socket, sequence, Config::s1);
             const std::string& str = oss.str();
             std::vector<uint8_t> vector(str.begin(), str.end());
             vector.push_back(0);
             std::this_thread::sleep_for(sleepTime);
-            std::cout
-                    << "-- Sending: "
-                    << cppsocket::ipToString(socket.getRemoteIPAddress())
-                    << std::endl
-                    << str
-                    << std::endl;
+
+            TRACE_SENDING(socket, str);
             socket.send(vector);
         });
 
@@ -74,10 +50,7 @@ bool Server::run()
 
         client.setCloseCallback([&](
                 cppsocket::Socket& socket) {
-            std::cout
-                    << "-- Client Disconnected: "
-                    << cppsocket::ipToString(socket.getRemoteIPAddress())
-                    << std::endl;
+            TRACE_DISCONNECTED(socket);
 
             for (auto
                  iterator = clients.begin();

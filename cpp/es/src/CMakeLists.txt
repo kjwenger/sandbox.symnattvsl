@@ -6,11 +6,15 @@ if(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif(UNIX)
 file(GLOB_RECURSE INC
-        ../../inc/*.hpp
+        ../../inc/Config.hpp
+        ../../inc/Echo.hpp
+        ../../inc/Trace.hpp
+        ../../inc/Utility.hpp
         ../inc/*.hpp
 )
 file(GLOB_RECURSE SRC
-        ../../src/*.cpp
+        ../../src/Config.cpp
+        ../../src/Echo.cpp
         ./*.cpp
 )
 add_executable(es
