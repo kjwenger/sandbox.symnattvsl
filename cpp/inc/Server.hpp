@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 
 #include <Network.hpp>
 
@@ -38,4 +39,5 @@ private:
     std::vector<cppsocket::Socket> clients;
     bool stopped;
     unsigned int sequence;
+    std::map<std::string, std::string> messages;
 };
