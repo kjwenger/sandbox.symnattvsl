@@ -35,8 +35,10 @@ std::string first; \
             if (iterator != messages.end()) \
             { \
                 oss << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"; \
+                oss << std::endl; \
                 oss << iterator->second; \
                 oss << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"; \
+                oss << std::endl; \
             } \
         } \
     } \
