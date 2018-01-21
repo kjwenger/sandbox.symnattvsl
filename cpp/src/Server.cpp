@@ -55,21 +55,7 @@ bool Server::run()
                 cppsocket::Socket& socket) {
             TRACE_DISCONNECTED(socket);
 
-            for (auto
-                 iterator = clients.begin();
-                 iterator != clients.end();)
-            {
-                if (&(*iterator) == &socket)
-                {
-                    iterator = clients.erase(iterator);
-                    break;
-                }
-                else
-                {
-                    ++iterator;
-                }
-            }
-
+            REMOVE_CLIENT(clients, socket)
         });
         clients.push_back(std::move(client));
     });

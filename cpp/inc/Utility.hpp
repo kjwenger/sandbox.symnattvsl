@@ -41,3 +41,21 @@ oss \
     } \
 } \
 
+#define REMOVE_CLIENT(clients, client) \
+for (auto \
+        iterator = clients.begin(); \
+        iterator != clients.end();) \
+{ \
+    auto at = *iterator; \
+    bool identical = (&at == &client); \
+    if (identical) \
+    { \
+        clients.erase(iterator); \
+        break; \
+    } \
+    else \
+    { \
+        ++iterator; \
+    } \
+} \
+
