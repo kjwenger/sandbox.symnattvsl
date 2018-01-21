@@ -46,7 +46,7 @@ for (auto \
         iterator = clients.begin(); \
         iterator != clients.end();) \
 { \
-    auto at = *iterator; \
+    auto& at = *iterator; \
     bool identical = (&at == &client); \
     if (identical) \
     { \
