@@ -23,7 +23,7 @@ target_include_directories(es PUBLIC
         ${CMAKE_PREFIX_PATH}/include
 )
 target_link_libraries(es
-        ${CMAKE_PREFIX_PATH}/lib/libcppsocket.so
+        ${CMAKE_PREFIX_PATH}/lib/libcppsocket${CMAKE_SHARED_LIBRARY_SUFFIX}
 )
 find_package(Doxygen
         REQUIRED dot

@@ -25,7 +25,7 @@ target_include_directories(s2 PUBLIC
         ${CMAKE_PREFIX_PATH}/include
 )
 target_link_libraries(s2
-        ${CMAKE_PREFIX_PATH}/lib/libcppsocket.so
+        ${CMAKE_PREFIX_PATH}/lib/libcppsocket${CMAKE_SHARED_LIBRARY_SUFFIX}
 )
 find_package(Doxygen
         REQUIRED dot
