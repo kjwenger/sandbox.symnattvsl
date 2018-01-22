@@ -40,9 +40,9 @@ sudo apt install \
 
 ## Structuring the project
 
-- <span class="dont"></span>: create one single build file</br>
+- <span class="dont"></span> create one single build file</br>
   `CmakeLists.txt`
-- <span class="do"></span>: create one build file per substructure</br>
+- <span class="do"></span> create one build file per substructure</br>
   `CmakeLists.txt ... add_subdirectory(test) ... test/CmakeLists.txt`
 
 ## Testing, testing, testing, ...
@@ -53,8 +53,8 @@ sudo apt install \
 
 #### Header guards
 
-- <span class="dont"></span>: `#ifndef _MY_H`
-- <span class="do"></span>: `#pragma once`
+- <span class="dont"></span> `#ifndef _MY_H`
+- <span class="do"></span> `#pragma once`
 
 ## Installing dependencies
 
@@ -65,5 +65,5 @@ sudo apt install \
 ## Tips and tricks
 
 ### Remembering inspirations
-- <span class="do"></span>: add comments with links to snippets, articles, forums, blogs, ...</br>
+- <span class="do"></span> add comments with links to snippets, articles, forums, blogs, ...</br>
   `# http://cprieto.com/posts/2016/10/cmake-out-of-source-build.html`
