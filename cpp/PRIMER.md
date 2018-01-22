@@ -1,9 +1,25 @@
 <style>
-.dont {color: red;   font-weight: bold;}
-.do   {color: green; font-weight: bold;}
+.dont {
+  visibility: hidden;
+}
+.dont:after {
+  visibility: visible;
+  content: 'DON\'T:';
+  color: red;
+  font-weight: bold;
+}
+.do {
+  visibility: hidden;
+}
+.do:after {
+  visibility: visible;
+  content: 'DO:';
+  color: green;
+  font-weight: bold;
+}
 </style>
 
-#symnattvsl/cpp - Symmetric NAT Traversal in C++: A C++ Primer
+# symnattvsl/cpp - Symmetric NAT Traversal in C++: A C++ Primer
 
 ## Table of contents
 
@@ -24,9 +40,9 @@ sudo apt install \
 
 ## Structuring the project
 
-- <span class="dont">DON'T</span>: create one single build file</br>
+- <span class="dont"></span>: create one single build file</br>
   `CmakeLists.txt`
-- <span class="do">DO</span>: create one build file per substructure</br>
+- <span class="do"></span>: create one build file per substructure</br>
   `CmakeLists.txt ... add_subdirectory(test) ... test/CmakeLists.txt`
 
 ## Testing, testing, testing, ...
@@ -37,8 +53,8 @@ sudo apt install \
 
 #### Header guards
 
-- <span class="dont">DON'T</span>: `#ifndef _MY_H`
-- <span class="do">DO</span>: `#pragma once`
+- <span class="dont"></span>: `#ifndef _MY_H`
+- <span class="do"></span>: `#pragma once`
 
 ## Installing dependencies
 
@@ -49,5 +65,5 @@ sudo apt install \
 ## Tips and tricks
 
 ### Remembering inspirations
-- <span class="do">DO</span>: add comments with links to snippets, articles, forums, blogs, ...</br>
+- <span class="do"></span>: add comments with links to snippets, articles, forums, blogs, ...</br>
   `# http://cprieto.com/posts/2016/10/cmake-out-of-source-build.html`
