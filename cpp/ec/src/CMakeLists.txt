@@ -29,11 +29,11 @@ target_include_directories(ec PUBLIC
 target_link_libraries(ec
         ${CMAKE_PREFIX_PATH}/lib/libcppsocket${CMAKE_SHARED_LIBRARY_SUFFIX}
 )
-find_package(Doxygen
-        REQUIRED dot
-        OPTIONAL_COMPONENTS mscgen dia
-)
-doxygen_add_docs(doxygen.ec
-        ./
-        ./inc
-)
+#find_package(Doxygen
+#        REQUIRED dot
+#        OPTIONAL_COMPONENTS mscgen dia
+#)
+#doxygen_add_docs(doxygen.ec
+#        ./
+#        ./inc
+#)
