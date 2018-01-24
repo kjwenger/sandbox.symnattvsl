@@ -2,20 +2,6 @@ Network:    NetGear WC7500
 NAT a (ec): ZyXEL   X150N
 NAT b (es): LinkSYS WRTU54G-TM ... ascending sequential port assignment
 
-git pull && make clean && make && NAME=es S1_HOST=192.168.52.48 S2_HOST=192.168.52.16 ./build/src/es
-Already up-to-date.
-make -C build clean
-cmake -H. -Bbuild
--- Configuring done
--- Generating done
--- Build files have been written to: /com.u14n/development/projects/sandbox/sandbox.symnattvsl/cpp/es/build
-cmake --build build
-[ 20%] Building CXX object src/CMakeFiles/es.dir/com.u14n/development/projects/sandbox/sandbox.symnattvsl/cpp/src/Config.cpp.o
-[ 40%] Building CXX object src/CMakeFiles/es.dir/com.u14n/development/projects/sandbox/sandbox.symnattvsl/cpp/src/Echo.cpp.o
-[ 60%] Building CXX object src/CMakeFiles/es.dir/EchoClient.cpp.o
-[ 80%] Building CXX object src/CMakeFiles/es.dir/main.cpp.o
-[100%] Linking CXX executable es
-[100%] Built target es
 -- Prefix: S1_
 -- Connecting: 192.168.52.48:1337
 2018-01-22 13:35:10: Connecting to 192.168.52.48:1337
@@ -127,5 +113,3 @@ la:0.0.0.0
 lp:1337
 ra:192.168.52.152
 rp:50064
-
-2018-01-22 13:35:11: Socket 192.168.0.101:50064 closed
