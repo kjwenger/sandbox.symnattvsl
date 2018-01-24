@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index",
-    "test": "eslint ."
+    "test": "standard ."
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +13,7 @@
     "wrtc": "0.0.65"
   },
   "devDependencies": {
-    "eslint": "^4.16.0"
+    "standard": "^10.0.3"
   },
   "description": ""
 }
