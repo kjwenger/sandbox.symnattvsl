@@ -1,0 +1,19 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index",
+    "test": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wrtc": "0.0.65"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0"
+  },
+  "description": ""
+}
